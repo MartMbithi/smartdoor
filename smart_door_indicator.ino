@@ -1,15 +1,4 @@
 
-/*
-============================================================
-Smart Door Indicator System
-------------------------------------------------------------
-Detects door open/close state using reed switch or button
-Provides LED and Buzzer alerts
-Logs events to Serial Monitor
-Designed for Wokwi / Arduino Uno
-============================================================
-*/
-
 const int door_sensor = 2;
 const int red_led = 8;
 const int green_led = 9;
@@ -33,26 +22,12 @@ void setup()
     pinMode(green_led, OUTPUT);
     pinMode(buzzer, OUTPUT);
 
-    InitializeSystem();
-}
-
-void loop()
-{
-    HandleDoorState();
-}
-
-void InitializeSystem()
-{
     digitalWrite(green_led, HIGH);
     digitalWrite(red_led, LOW);
     digitalWrite(buzzer, LOW);
-
-    Serial.println("=================================");
-    Serial.println(" Smart Door Indicator Initialized");
-    Serial.println("=================================");
 }
 
-void HandleDoorState()
+void loop()
 {
     int reading = digitalRead(door_sensor);
 
@@ -69,44 +44,27 @@ void HandleDoorState()
 
             if (stable_state == DOOR_CLOSED)
             {
-                DoorClosed();
+                digitalWrite(green_led, HIGH);
+                digitalWrite(red_led, LOW);
+                digitalWrite(buzzer, LOW);
+                Serial.println("[INFO] Door Closed");
             }
             else
             {
-                DoorOpened();
+                digitalWrite(green_led, LOW);
+                digitalWrite(red_led, HIGH);
+                Serial.println("[ALERT] Door Opened");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    digitalWrite(buzzer, HIGH);
+                    delay(200);
+                    digitalWrite(buzzer, LOW);
+                    delay(200);
+                }
             }
         }
     }
 
     last_reading = reading;
-}
-
-void DoorClosed()
-{
-    digitalWrite(green_led, HIGH);
-    digitalWrite(red_led, LOW);
-    digitalWrite(buzzer, LOW);
-
-    Serial.println("[INFO] Door Closed");
-}
-
-void DoorOpened()
-{
-    digitalWrite(green_led, LOW);
-    digitalWrite(red_led, HIGH);
-
-    Serial.println("[ALERT] Door Opened");
-
-    TriggerAlert();
-}
-
-void TriggerAlert()
-{
-    for (int i = 0; i < 3; i++)
-    {
-        digitalWrite(buzzer, HIGH);
-        delay(200);
-        digitalWrite(buzzer, LOW);
-        delay(200);
-    }
 }

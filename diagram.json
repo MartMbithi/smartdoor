@@ -1,10 +1,71 @@
-
 {
   "version": 1,
-  "author": "Smart Door Indicator",
+  "author": "Smart Door Indicator RGB Version",
   "editor": "wokwi",
   "parts": [
-    { "type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0 }
+    {
+      "type": "wokwi-arduino-uno",
+      "id": "uno",
+      "top": 0,
+      "left": 0
+    },
+    {
+      "type": "wokwi-rgb-led",
+      "id": "rgb1",
+      "top": -120,
+      "left": 150,
+      "attrs": {
+        "common": "cathode"
+      }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzz1",
+      "top": 120,
+      "left": 180
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": -120,
+      "left": -120
+    }
   ],
-  "connections": []
+  "connections": [
+    [
+      "btn1:1.l",
+      "uno:2",
+      "green"
+    ],
+    [
+      "btn1:2.r",
+      "uno:GND.1",
+      "black"
+    ],
+    [
+      "rgb1:R",
+      "uno:8",
+      "red"
+    ],
+    [
+      "rgb1:G",
+      "uno:9",
+      "green"
+    ],
+    [
+      "rgb1:C",
+      "uno:GND.2",
+      "black"
+    ],
+    [
+      "buzz1:1",
+      "uno:10",
+      "blue"
+    ],
+    [
+      "buzz1:2",
+      "uno:GND.3",
+      "black"
+    ]
+  ]
 }
