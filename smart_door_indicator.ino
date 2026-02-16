@@ -15,56 +15,56 @@ int stable_state = HIGH;
 
 void setup()
 {
-  Serial.begin(9600);
+    Serial.begin(9600);
 
-  pinMode(door_sensor, INPUT_PULLUP);
-  pinMode(red_led, OUTPUT);
-  pinMode(green_led, OUTPUT);
-  pinMode(buzzer, OUTPUT);
+    pinMode(door_sensor, INPUT_PULLUP);
+    pinMode(red_led, OUTPUT);
+    pinMode(green_led, OUTPUT);
+    pinMode(buzzer, OUTPUT);
 
-  digitalWrite(green_led, HIGH);
-  digitalWrite(red_led, LOW);
-  digitalWrite(buzzer, LOW);
+    digitalWrite(green_led, HIGH);
+    digitalWrite(red_led, LOW);
+    digitalWrite(buzzer, LOW);
 }
 
 void loop()
 {
-  int reading = digitalRead(door_sensor);
+    int reading = digitalRead(door_sensor);
 
-  if (reading != last_reading)
-  {
-    last_debounce_time = millis();
-  }
-
-  if ((millis() - last_debounce_time) > debounce_delay)
-  {
-    if (reading != stable_state)
+    if (reading != last_reading)
     {
-      stable_state = reading;
-
-      if (stable_state == DOOR_CLOSED)
-      {
-        digitalWrite(green_led, HIGH);
-        digitalWrite(red_led, LOW);
-        digitalWrite(buzzer, LOW);
-        Serial.println("[INFO] Door Closed");
-      }
-      else
-      {
-        digitalWrite(green_led, LOW);
-        digitalWrite(red_led, HIGH);
-        Serial.println("[ALERT] Door Opened");
-
-        for (int i = 0; i < 3; i++)
-        {
-          digitalWrite(buzzer, HIGH);
-          delay(200);
-          digitalWrite(buzzer, LOW);
-          delay(200);
-        }
-      }
+        last_debounce_time = millis();
     }
-  }
 
-  last_reading = reading;
+    if ((millis() - last_debounce_time) > debounce_delay)
+    {
+        if (reading != stable_state)
+        {
+            stable_state = reading;
+
+            if (stable_state == DOOR_CLOSED)
+            {
+                digitalWrite(green_led, HIGH);
+                digitalWrite(red_led, LOW);
+                digitalWrite(buzzer, LOW);
+                Serial.println("[INFO] Door Closed");
+            }
+            else
+            {
+                digitalWrite(green_led, LOW);
+                digitalWrite(red_led, HIGH);
+                Serial.println("[ALERT] Door Opened");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    digitalWrite(buzzer, HIGH);
+                    delay(200);
+                    digitalWrite(buzzer, LOW);
+                    delay(200);
+                }
+            }
+        }
+    }
+
+    last_reading = reading;
 }

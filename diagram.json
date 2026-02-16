@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "author": "Smart Door Indicator - Verified Version",
+  "author": "Smart Door Indicator RGB Version",
   "editor": "wokwi",
   "parts": [
     {
@@ -13,40 +13,22 @@
       "type": "wokwi-rgb-led",
       "id": "rgb1",
       "top": -120,
-      "left": 180,
+      "left": 150,
       "attrs": {
         "common": "cathode"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "res_red",
-      "top": -40,
-      "left": 120,
-      "attrs": {
-        "value": "220"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "res_green",
-      "top": -80,
-      "left": 120,
-      "attrs": {
-        "value": "220"
       }
     },
     {
       "type": "wokwi-buzzer",
       "id": "buzz1",
       "top": 120,
-      "left": 200
+      "left": 180
     },
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
       "top": -120,
-      "left": -150
+      "left": -120
     }
   ],
   "connections": [
@@ -61,27 +43,17 @@
       "black"
     ],
     [
+      "rgb1:R",
       "uno:8",
-      "res_red:1",
       "red"
     ],
     [
-      "res_red:2",
-      "rgb1:1",
-      "red"
-    ],
-    [
+      "rgb1:G",
       "uno:9",
-      "res_green:1",
       "green"
     ],
     [
-      "res_green:2",
-      "rgb1:3",
-      "green"
-    ],
-    [
-      "rgb1:2",
+      "rgb1:C",
       "uno:GND.2",
       "black"
     ],
