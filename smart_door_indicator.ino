@@ -1,18 +1,25 @@
 
+/* Pin Configurations */
 const int door_sensor = 2;
 const int red_led = 8;
 const int green_led = 9;
 const int buzzer = 10;
 
+
+/* Logical State Definitions */
 #define DOOR_OPEN HIGH
 #define DOOR_CLOSED LOW
 
+
+/* Debounce Mechanisms */
 unsigned long last_debounce_time = 0;
 unsigned long debounce_delay = 50;
 
 int last_reading = HIGH;
 int stable_state = HIGH;
 
+
+/* Main Method */
 void setup()
 {
     Serial.begin(9600);
@@ -27,6 +34,13 @@ void setup()
     digitalWrite(buzzer, LOW);
 }
 
+/* Main Execution Loop Which has the following Flow:
+    1. Read sensor input.
+    2. Detect change from previous reading.
+    3. Apply debounce timing.
+    4. Update stable state if confirmed.
+    5. Trigger appropriate response function.
+ */
 void loop()
 {
     int reading = digitalRead(door_sensor);
