@@ -1,71 +1,204 @@
 {
   "version": 1,
-  "author": "Smart Door Indicator RGB Version",
+  "author": "SmartDoor Project",
   "editor": "wokwi",
   "parts": [
     {
-      "type": "wokwi-arduino-uno",
-      "id": "uno",
-      "top": 0,
-      "left": 0
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 4.7,
+      "left": -5,
+      "attrs": {}
     },
     {
-      "type": "wokwi-rgb-led",
-      "id": "rgb1",
-      "top": -120,
-      "left": 150,
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": -140.86,
+      "left": 182.63,
       "attrs": {
-        "common": "cathode"
+        "i2cAddress": "0x3c"
       }
     },
     {
       "type": "wokwi-buzzer",
-      "id": "buzz1",
-      "top": 120,
-      "left": 180
+      "id": "bz1",
+      "top": 50.4,
+      "left": -113.4,
+      "attrs": {
+        "volume": "0.5"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 225.6,
+      "left": 181.85,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 102,
+      "left": 263,
+      "attrs": {
+        "color": "green"
+      }
     },
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
-      "top": -120,
-      "left": -120
+      "top": 217.4,
+      "left": 28.8,
+      "attrs": {
+        "color": "green",
+        "bounce": "1"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn2",
+      "top": 294.2,
+      "left": 28.8,
+      "attrs": {
+        "color": "red"
+      }
     }
   ],
   "connections": [
     [
+      "esp:TX0",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX0",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "esp:D21",
+      "oled1:SDA",
+      "blue",
+      [
+        "h28.5",
+        "v-240.4",
+        "h124.73"
+      ]
+    ],
+    [
+      "esp:D22",
+      "oled1:SCL",
+      "yellow",
+      [
+        "v-5.2",
+        "h9.3",
+        "v-201.6",
+        "h134.1"
+      ]
+    ],
+    [
+      "esp:3V3",
+      "oled1:VCC",
+      "red",
+      [
+        "h13.9",
+        "v-326.4",
+        "h120.05"
+      ]
+    ],
+    [
+      "esp:GND.1",
+      "oled1:GND",
+      "black",
+      [
+        "h18.9",
+        "v-307.3",
+        "h105.6"
+      ]
+    ],
+    [
+      "esp:D13",
+      "bz1:2",
+      "cyan",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:GND.1",
+      "bz1:1",
+      "black",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:D26",
+      "r1:1",
+      "lime",
+      [
+        "h-28.8",
+        "v67.1",
+        "h240"
+      ]
+    ],
+    [
+      "r1:2",
+      "led1:A",
+      "lime",
+      [
+        "v18",
+        "h76.8"
+      ]
+    ],
+    [
+      "esp:GND.1",
+      "led1:C",
+      "black",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:D14",
       "btn1:1.l",
-      "uno:2",
-      "green"
+      "green",
+      [
+        "h0"
+      ]
     ],
     [
-      "btn1:2.r",
-      "uno:GND.1",
-      "black"
+      "esp:GND.1",
+      "btn1:2.l",
+      "black",
+      [
+        "h-86.7",
+        "v172.5"
+      ]
     ],
     [
-      "rgb1:R",
-      "uno:8",
-      "red"
+      "esp:D12",
+      "btn2:1.l",
+      "orange",
+      [
+        "h19.2",
+        "v172.1"
+      ]
     ],
     [
-      "rgb1:G",
-      "uno:9",
-      "green"
-    ],
-    [
-      "rgb1:C",
-      "uno:GND.2",
-      "black"
-    ],
-    [
-      "buzz1:1",
-      "uno:10",
-      "blue"
-    ],
-    [
-      "buzz1:2",
-      "uno:GND.3",
-      "black"
+      "esp:GND.1",
+      "btn2:2.l",
+      "black",
+      [
+        "h-96.3",
+        "v172.5"
+      ]
     ]
-  ]
+  ],
+  "dependencies": {}
 }
