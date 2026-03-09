@@ -11,6 +11,8 @@ from streamlit_autorefresh import st_autorefresh
 
 FIREBASE_URL = "https://smartdooriot-fad5e-default-rtdb.firebaseio.com/access_logs.json"
 
+#Default System Auth Creds
+
 USERNAME = "admin"
 PASSWORD = "smartdoor"
 
@@ -222,4 +224,4 @@ st.dataframe(
 # --------------------------------------------------
 
 st.markdown("---")
-st.caption("SmartDoor IoT Security System")
+st.caption("SmartDoor IoT Security System, Designed and developed by Group II")
